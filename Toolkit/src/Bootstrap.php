@@ -18,25 +18,12 @@ if (!defined('TOOLKIT_BASE_PATH')) {
 // Require the Autoloader class explicitly before using it
 require_once __DIR__ . '/Autoloader.php';
 
-namespace Toolkit;
+// Register the autoloader
+Toolkit\Autoloader::register();
 
-class Bootstrap
-{
-    /**
-     * Initialize the Toolkit environment.
-     * 
-     * @return void
-     */
-    public static function init(): void
-    {
-        // Set error reporting to maximum
-        error_reporting(E_ALL);
-        ini_set('display_errors', '1');
-        
-        // Set default timezone
-        date_default_timezone_set('UTC');
-        
-        // Register the autoloader
-        Autoloader::register();
-    }
-}
+// Set error reporting to maximum
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+// Set default timezone
+date_default_timezone_set('UTC');

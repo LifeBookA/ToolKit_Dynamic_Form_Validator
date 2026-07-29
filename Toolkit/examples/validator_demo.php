@@ -16,12 +16,10 @@ declare(strict_types=1);
 // Bootstrap the Toolkit
 require_once __DIR__ . '/../src/Bootstrap.php';
 
-use Toolkit\Bootstrap;
 use Toolkit\Validator\Validator;
 use Toolkit\Validator\Config\ValidatorConfig;
 
-// Initialize the environment
-Bootstrap::init();
+// Initialize the environment (done automatically by Bootstrap.php)
 
 // Determine if we're running in CLI or web mode
 $isCli = php_sapi_name() === 'cli';
