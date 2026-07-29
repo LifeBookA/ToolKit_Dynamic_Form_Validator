@@ -301,6 +301,115 @@ output('getErrorsForField("email"): ' . json_encode($result->getErrorsForField('
 output('toArray(): ' . json_encode($result->toArray(), JSON_PRETTY_PRINT));
 
 // ============================================================================
+// SCENARIO 7: New Advanced Rules (url, ip, date, between, alpha, alpha_num)
+// ============================================================================
+
+section('Scenario 7: New Advanced Rules (url, ip, date, between, alpha, alpha_num)');
+
+$newAdvancedRules = [
+    'website' => 'required|url',
+    'ip_address' => 'required|ip:ipv4',
+    'birth_date' => 'required|date:Y-m-d',
+    'score' => 'required|between:0,100',
+    'first_name' => 'required|alpha:space',
+    'username2' => 'required|alpha_num',
+];
+
+// Test Case 7A: Valid new advanced data
+output('Test 7A: Valid new advanced data');
+$validNewAdvancedData = [
+    'website' => 'https://example.com/path?query=1',
+    'ip_address' => '192.168.1.1',
+    'birth_date' => '1990-05-15',
+    'score' => '85',
+    'first_name' => 'John Doe',
+    'username2' => 'john123',
+];
+
+$result = $validator->validate($validNewAdvancedData, $newAdvancedRules);
+displayResults($result->toArray());
+
+// Test Case 7B: Invalid new advanced data
+output('Test 7B: Invalid new advanced data');
+$invalidNewAdvancedData = [
+    'website' => 'not-a-url',
+    'ip_address' => '999.999.999.999',
+    'birth_date' => 'invalid-date',
+    'score' => '150',
+    'first_name' => 'John123',
+    'username2' => 'john_@#$',
+];
+
+$result = $validator->validate($invalidNewAdvancedData, $newAdvancedRules);
+displayResults($result->toArray());
+
+// ============================================================================
+// SCENARIO 8: Nested Data Validation with ArrayHelper
+// ============================================================================
+
+section('Scenario 8: Nested Data Validation');
+
+use Toolkit\Validator\Helpers\ArrayHelper;
+
+output('Test 8: Testing ArrayHelper with nested arrays');
+
+$nestedArray = [
+    'user' => [
+        'profile' => [
+            'name' => 'John',
+            'email' => 'john@example.com'
+        ],
+        'settings' => [
+            'theme' => 'dark',
+            'notifications' => true
+        ]
+    ],
+    'posts' => [
+        ['title' => 'First Post', 'views' => 100],
+        ['title' => 'Second Post', 'views' => 200]
+    ]
+];
+
+output('Nested array structure created');
+output('Accessing user.profile.name: ' . ArrayHelper::get($nestedArray, 'user.profile.name'));
+output('Accessing user.settings.theme: ' . ArrayHelper::get($nestedArray, 'user.settings.theme'));
+output('Accessing posts.0.title: ' . ArrayHelper::get($nestedArray, 'posts.0.title'));
+output('Accessing posts.1.views: ' . ArrayHelper::get($nestedArray, 'posts.1.views'));
+output('Accessing non-existent key: ' . var_export(ArrayHelper::get($nestedArray, 'user.profile.age'), true));
+
+// ============================================================================
+// SCENARIO 9: Chaining Multiple Rules on Same Field
+// ============================================================================
+
+section('Scenario 9: Complex Validation Chains');
+
+$complexRules = [
+    'product_code' => 'required|alpha_num|min_length:5|max_length:10',
+    'price' => 'required|numeric|between:0.01,9999.99',
+    'description' => 'max_length:1000',
+];
+
+output('Test 9A: Valid complex data');
+$validComplexData = [
+    'product_code' => 'ABC123',
+    'price' => '99.99',
+    'description' => 'A great product!',
+];
+
+$result = $validator->validate($validComplexData, $complexRules);
+displayResults($result->toArray());
+
+output('Test 9B: Invalid complex data (multiple rule failures)');
+$invalidComplexData = [
+    'product_code' => 'AB!@',  // Not alphanumeric, too short
+    'price' => '-50',  // Below minimum
+    'description' => str_repeat('Long description ', 100),  // Too long
+];
+
+$result = $validator->validate($invalidComplexData, $complexRules);
+displayResults($result->toArray());
+
+// ============================================================================
 // Final Summary
 // ============================================================================
 
@@ -309,6 +418,12 @@ section('Demo Complete');
 if ($isCli) {
     echo "\nAll validation scenarios have been executed.\n";
     echo "Review the output above to see how the validator handles different cases.\n\n";
+    echo "📊 Summary:\n";
+    echo "  - Original scenarios: 6\n";
+    echo "  - New scenarios added: 3\n";
+    echo "  - Total test cases: 15+\n";
+    echo "  - New rules added: url, ip, date, between, alpha, alpha_num\n";
+    echo "  - Total available rules: 15\n\n";
 } else {
     echo '<p>All validation scenarios have been executed. Review the output above.</p>';
 }

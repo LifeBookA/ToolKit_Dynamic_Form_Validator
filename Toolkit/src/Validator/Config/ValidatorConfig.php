@@ -35,6 +35,12 @@ class ValidatorConfig
         'regex' => 'The {field} field format is invalid.',
         'in_array' => 'The {field} field must be one of: {param}.',
         'unique' => 'The {field} field must be unique.',
+        'url' => 'The {field} field must be a valid URL.',
+        'ip' => 'The {field} field must be a valid IP address.',
+        'date' => 'The {field} field must be a valid date in format: {param}.',
+        'between' => 'The {field} field must be between {param}.',
+        'alpha' => 'The {field} field must contain only alphabetic characters.',
+        'alpha_num' => 'The {field} field must contain only alphanumeric characters.',
     ];
 
     /**

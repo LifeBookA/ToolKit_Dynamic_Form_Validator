@@ -57,6 +57,12 @@ class Validator
         'regex' => Rules\RegexRule::class,
         'in_array' => Rules\InArrayRule::class,
         'unique' => Rules\UniqueRule::class,
+        'url' => Rules\UrlRule::class,
+        'ip' => Rules\IpRule::class,
+        'date' => Rules\DateRule::class,
+        'between' => Rules\BetweenRule::class,
+        'alpha' => Rules\AlphaRule::class,
+        'alpha_num' => Rules\AlphaNumRule::class,
     ];
 
     /**

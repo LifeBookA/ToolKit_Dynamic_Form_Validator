@@ -18,6 +18,22 @@ class ArrayHelper
      * Get a value from an array using dot notation.
      * 
      * Example: $array = ['user' => ['name' => 'John']]
+     *          ArrayHelper::get($array, 'user.name') returns 'John'
+     * 
+     * @param array $array The array to search.
+     * @param string $key The key in dot notation (e.g., 'user.name').
+     * @param mixed $default Default value if key is not found.
+     * @return mixed The value at the specified key or the default value.
+     */
+    public static function get(array $array, string $key, mixed $default = null): mixed
+    {
+        return self::dot($array, $key, $default);
+    }
+
+    /**
+     * Get a value from an array using dot notation.
+     * 
+     * Example: $array = ['user' => ['name' => 'John']]
      *          ArrayHelper::dot($array, 'user.name') returns 'John'
      * 
      * @param array $array The array to search.
