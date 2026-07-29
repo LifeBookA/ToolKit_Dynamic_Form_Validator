@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Toolkit;
-
 /**
  * Bootstrap class for initializing the Toolkit environment.
  * 
@@ -11,6 +9,17 @@ namespace Toolkit;
  * 
  * @package Toolkit
  */
+
+// Define the base path for the Toolkit
+if (!defined('TOOLKIT_BASE_PATH')) {
+    define('TOOLKIT_BASE_PATH', dirname(__DIR__));
+}
+
+// Require the Autoloader class explicitly before using it
+require_once __DIR__ . '/Autoloader.php';
+
+namespace Toolkit;
+
 class Bootstrap
 {
     /**
