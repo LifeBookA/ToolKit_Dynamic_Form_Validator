@@ -134,9 +134,12 @@ $validator->setMessages($customMessages);
 
 ## 📚 Documentation
 
-For detailed documentation, see:
-- [Validator Documentation](docs/validator.md)
-- [Example Code](examples/validator_demo.php)
+For detailed documentation, see the following guides in the `docs/` directory:
+
+- **[Installation Guide](docs/INSTALLATION.md)** - Step-by-step installation instructions
+- **[Usage Guide](docs/USAGE.md)** - Complete usage examples and rule reference
+- **[Extending Guide](docs/EXTENDING.md)** - How to create custom validation rules
+- **[Validator Reference](docs/validator.md)** - Technical reference for the Validator module
 
 ## 🧪 Running Examples
 
